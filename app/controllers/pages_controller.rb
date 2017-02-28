@@ -34,9 +34,10 @@ class PagesController < ApplicationController
     secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
 
-    @body = Nokogiri::XML(URI.parse(@conformanceUri).read)
-    @bodyParsed = @body.xpath("//rest//security//extension")
-
+    @body = URI.parse(@conformanceUri).read
+    #@body = Nokogiri::XML(URI.parse(@conformanceUri).read)
+    #//@bodyParsed = @body.at("rest")
+    #//@b2 = @body.search
 
 
     #
