@@ -33,13 +33,15 @@ class PagesController < ApplicationController
     secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
 
-    # request = Net::HTTP::Get.new(@conformanceUri)
-    # result = Net::HTTP.start(@conformanceUri) {|http|
-    #   http.request(request)
-    #
-    # }
-    #
-    # @body = result.body
+    cu = URI.parse(@conformanceUri)
+
+    request = Net::HTTP::Get.new(cu.to_s)
+    result = Net::HTTP.start(cu.host, cu.port) {|http|
+      http.request(request)
+
+    }
+
+    @body = result.body
 
     render :patient
     #render layout: false
