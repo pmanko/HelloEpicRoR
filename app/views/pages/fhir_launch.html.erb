@@ -69,6 +69,8 @@ Loading...
             tokenUri: tokenUri
         });
 
+        console.log(sessionStorage[state]);
+
         // finally, redirect the browser to the authorizatin server and pass the needed
         // parameters for the authorization request in the URL
         window.location.href = authUri + "?" +
