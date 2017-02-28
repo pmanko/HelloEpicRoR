@@ -33,7 +33,9 @@ class PagesController < ApplicationController
     secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
 
-    @body = URI.parse(@conformanceUri).read
+    @body = Hash.from_xml(URI.parse(@conformanceUri).read)
+
+
     #
     # request = Net::HTTP::Get.new(cu.to_s)
     # result = Net::HTTP.start(cu.host, 80, :use_ssl) {|http|
