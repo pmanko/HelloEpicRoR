@@ -29,7 +29,9 @@ class PagesController < ApplicationController
         fn: @body.at("//given").values.first,
         ln: @body.at("//family").values.first,
         dob: @body.at("//birthDate").values.first,
-        gender: @body.at("//gender").values.first
+        gender: @body.at("//gender").values.first,
+        email: @body.at("//telecom//system[@value='email']//..//value").values.first,
+        phone: @body.at("//telecom//system[@value='phone']//..//value").values.first
     }
 
   end

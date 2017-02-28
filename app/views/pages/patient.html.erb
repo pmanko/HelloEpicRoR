@@ -1,7 +1,4 @@
 <section id='content' class='main'>
-  <p>body: <%= @body %></p>
-  <p>params: <%= @params %></p>
-
   <h2 id='patient'>Patient Information</h4>
     <table class="table table-user-information">
       <tbody>
@@ -18,6 +15,11 @@
       <tr>
         <td>Patient Status:</td>
         <td><%= @params[:active] ? "Active" : "Not Active" %></td>
+      </tr>
+
+      <tr>
+        <td>Email:</td>
+        <td><%= @params[:email] %></td>
       </tr>
 
       <tr>
@@ -42,10 +44,18 @@
 
       <tr>
         <td>Address:</td>
-        <td><%= "#{@params[:a_line]}\n#{@params[:city]},#{@params[:state]} #{@params[:pc]}\n#{@params[:country]}" %></td>
+        <td><%= "#{@params[:a_line]}, #{@params[:city]}, #{@params[:state]} #{@params[:pc]}, #{@params[:country]}" %></td>
       </tr>
+
+      <tr>
+        <td>Phone:</td>
+        <td><%= @params[:phone] %></td>
+      </tr>
+
+
 
       </tbody>
     </table>
     <h5>Other Information...</h5>
+    <p style="font-size: 8px;"><%= @body %></p>
 </section>
