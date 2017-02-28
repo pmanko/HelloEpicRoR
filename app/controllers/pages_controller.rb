@@ -4,6 +4,20 @@ require 'uri'
 
 class PagesController < ApplicationController
 
+  def patient
+    uri = URI("#{session[:serviceUri]}/Patient/#{session[:patientId]}")
+
+    req = Net::HTTP::Get.new(uri)
+    req.set_form_data(token_query)
+    req['Authorization'] = "Bearer #{session[:accessToken]}"
+
+    res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+      http.request(req)
+    end
+
+    @body = res.body
+
+  end
 
   def fhir_index
     @state = params[:state]
@@ -16,7 +30,6 @@ class PagesController < ApplicationController
     }
 
     uri = URI(session[:tokenUri])
-    #uri.query = URI.encode_www_form(token_query)
 
     req = Net::HTTP::Post.new(uri)
     req.set_form_data(token_query)
@@ -27,10 +40,14 @@ class PagesController < ApplicationController
     end
 
 
-    @body = res.body
+    @body = JSON.parse(res.body)
+
+    session[:accessToken] = @body['access_token']
+    session[:patientId] = @body['patient']
 
 
-    render :patient
+
+    redirect_to patient_path
   end
 
   def fhir_launch
