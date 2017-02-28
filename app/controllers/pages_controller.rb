@@ -27,7 +27,7 @@ class PagesController < ApplicationController
     end
 
 
-    @body = res.value
+    @body = res.body
 
 
     render :patient
