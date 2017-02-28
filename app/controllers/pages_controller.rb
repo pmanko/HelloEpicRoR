@@ -22,7 +22,7 @@ class PagesController < ApplicationController
     req.set_form_data(token_query)
     req.basic_auth(session[:clientId], session[:secret])
 
-    res = Net::HTTP.start(uri.hostname) do |http|
+    res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') do |http|
       http.request(req)
     end
 
