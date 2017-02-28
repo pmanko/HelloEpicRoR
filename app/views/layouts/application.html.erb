@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HERor</title>
+    <title>Hello Epic!</title>
     <%= csrf_meta_tags %>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header" class="alt">
+        <span class="logo"><img src="/assets/logo.svg" alt="" /></span>
+        <h1>Hello Epic!</h1>
+      </header>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+      <!-- Nav -->
+      <nav id="nav">
+        <ul>
+          <li><%= link_to "Login", root_path, class: current_page?(action: "login") ? 'active' : '' %></li>
+          <li><%= link_to "Provider", provider_path, class: current_page?(action: "provider") ? 'active' : ''  %></li>
+          <li><%= link_to "Patient", patient_path, class: current_page?(action: "patient") ? 'active' : ''  %></li>
+        </ul>
+      </nav>
+
+      <div id="main">
+        <%= yield %>
+      </div>
+    </div>
+
+
+    <footer id="footer">
+
+      <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
   </body>
 </html>

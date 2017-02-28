@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.scrollex.min.js
+//= require jquery.scrolly.min.js
+//= require skel.min
+//= require util
+//= require main
 //= require_tree .

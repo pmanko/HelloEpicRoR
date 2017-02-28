@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   root 'pages#login'
 
-  get 'patient', to: 'pages#patient'
+  get 'patient', to: 'pages#patient', as: :patient
 
-  get 'provider', to: 'pages#provider'
+  get 'provider', to: 'pages#provider', as: :provider
 
 end
