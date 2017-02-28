@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   get 'provider', to: 'pages#provider', as: :provider
 
+  get 'findex', to: 'pages#fhir_index', as: :fhir_index
+  get 'flaunch', to: 'pages#fhir_launch', as: :fhir_launch
+
 end
