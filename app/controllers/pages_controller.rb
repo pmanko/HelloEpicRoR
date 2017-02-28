@@ -35,7 +35,7 @@ class PagesController < ApplicationController
 
 
     @body = Nokogiri::XML(URI.parse(@conformanceUri).read)
-    @bodyParsed = @body.xpath("//rest//security//extension//")
+    @bodyParsed = @body.xpath("//rest//security//extension")
 
 
 
