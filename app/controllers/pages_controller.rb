@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     end
 
 
-    @body = res.body
+    @body = Nokogiri::XML(res.body)
     @body.remove_namespaces!
 
     @params = {

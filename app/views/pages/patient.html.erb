@@ -9,46 +9,41 @@
         <td> <b>Personal Information: </b></td>
         <td></td>
       </tr>
+
       <tr>
-        <td>Patient Name:</td>
-        <td> John Smith</td>
-      </tr>
-      <tr>
-        <td>Provider:</td>
-        <td> Some MD</td>
-      </tr>
-      <tr>
-        <td>Age:</td>
-        <td>20</td>
+        <td>Patient ID:</td>
+        <td><%= @params[:id] %></td>
       </tr>
 
       <tr>
+        <td>Patient Status:</td>
+        <td><%= @params[:active] ? "Active" | "Not Active" %></td>
+      </tr>
+
+      <tr>
+        <td>Patient First Name:</td>
+        <td><%= @params[:fn] %></td>
+      </tr>
+
+      <tr>
+        <td>Patient Last Name:</td>
+        <td><%= @params[:ln] %></td>
+      </tr>
+
+      <tr>
+        <td>Date of Birth:</td>
+        <td><%= @params[:dob] %></td>
+      </tr>
+
       <tr>
         <td>Gender:</td>
-        <td> M</td>
+        <td><%= @params[:gender] %></td>
       </tr>
+
       <tr>
         <td>Address:</td>
-        <td>...</td>
+        <td><%= "#{@params[:a_line]}\n#{@params[:city]},#{@params[:state]} #{@params[:pc]}\n#{@params[:country]}" %></td>
       </tr>
-      <tr>
-        <td>Mobile:</td>
-        <td>...</td>
-      </tr>
-      <td>Job:</td>
-      <td> h </td>
-
-      </tr>
-
-      </tr>
-      <td>Marital Status:</td>
-      <td> s </td>
-
-      </tr>
-
-      </tr>
-
-
 
       </tbody>
     </table>
