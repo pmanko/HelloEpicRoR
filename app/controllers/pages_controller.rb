@@ -14,7 +14,23 @@ class PagesController < ApplicationController
       http.request(req)
     end
 
+
     @body = res.body
+    @body.remove_namespaces!
+
+    @params = {
+        a_line: @body.at("//line").values.first,
+        city: @body.at("//city").values.first,
+        state: @body.at("//state").values.first,
+        pc: @body.at("//postalCode").values.first,
+        country: @body.at("//country").values.first,
+        id: @body.at("//id").values.first,
+        active: @body.at("//active").values.first == "true",
+        fn: @body.at("//given").values.first,
+        ln: @body.at("//family").values.first,
+        dob: @body.at("//birthDate").values.first,
+        gender: @body.at("//gender").values.first
+    }
 
   end
 
