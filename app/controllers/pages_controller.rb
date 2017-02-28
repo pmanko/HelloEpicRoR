@@ -8,7 +8,6 @@ class PagesController < ApplicationController
     uri = URI("#{session[:serviceUri]}/Patient/#{session[:patientId]}")
 
     req = Net::HTTP::Get.new(uri)
-    req.set_form_data(token_query)
     req['Authorization'] = "Bearer #{session[:accessToken]}"
 
     res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') do |http|
