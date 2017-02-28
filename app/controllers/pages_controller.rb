@@ -35,19 +35,10 @@ class PagesController < ApplicationController
 
 
     @body = URI.parse(@conformanceUri).read
-    #@body = Nokogiri::XML(URI.parse(@conformanceUri).read)
-    #//@bodyParsed = @body.at("rest")
-    #//@b2 = @body.search
+    @body.remove_namespaces!
+    @authUri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="authorize"]//valueUri').first.values.first
+    @tokenUri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="token"]//valueUri').first.values.first
 
-
-    #
-    # request = Net::HTTP::Get.new(cu.to_s)
-    # result = Net::HTTP.start(cu.host, 80, :use_ssl) {|http|
-    #   http.request(request)
-    #
-    # }
-    #
-    # @body = result.body
 
     render :patient
     #render layout: false
