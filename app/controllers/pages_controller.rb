@@ -61,7 +61,7 @@ class PagesController < ApplicationController
     redirect_uri = URI(@authUri)
     redirect_uri.query = URI.encode_www_form(query_hash)
 
-    redirect_to redirect_uri
+    redirect_to redirect_uri.to_s
 
   end
 
