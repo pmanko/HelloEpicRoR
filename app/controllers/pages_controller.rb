@@ -6,17 +6,31 @@ class PagesController < ApplicationController
 
 
   def fhir_index
-    # @state = params[:state]
-    # @code = params[:code]
-    #
-    #
-    #
-    #
-    #
-    #
-    render :patient
+    @state = params[:state]
+    @code = params[:code]
 
-    #render layout: false
+    token_query = {
+        code: @code,
+        grant_type: 'authorization_code',
+        redirect_uri: session[:redirectUri]
+    }
+
+    uri = URI(session[:tokenUri])
+    #uri.query = URI.encode_www_form(token_query)
+
+    req = Net::HTTP::Post.new(uri)
+    req.set_form_data(token_query)
+    req.basic_auth(session[:clientId], session[:secret])
+
+    res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.request(req)
+    end
+
+
+    @body = res.value
+
+
+    render :patient
   end
 
   def fhir_launch
