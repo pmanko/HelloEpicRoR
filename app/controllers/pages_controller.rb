@@ -1,19 +1,20 @@
 require 'net/http'
 require 'nokogiri'
+require 'uri'
 
 class PagesController < ApplicationController
 
 
   def fhir_index
-    @state = params[:state]
-    @code = params[:code]
-
-
-
-
-
-
-    render :patient
+    # @state = params[:state]
+    # @code = params[:code]
+    #
+    #
+    #
+    #
+    #
+    #
+    # render :patient
 
     #render layout: false
   end
@@ -40,8 +41,28 @@ class PagesController < ApplicationController
     @tokenUri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="token"]//valueUri').first.values.first
 
 
-    render :patient
-    #render layout: false
+    session[:clientId] = clientId
+    session[:secret] = secret
+    session[:serviceUri] = @serviceUri
+    session[:redirectUri] = @redirectUri
+    session[:tokenUri] = @tokenUri
+
+    query_hash = {
+        response_type: "code",
+        client_id: clientId,
+        scope: @scope,
+        redirect_uri: @redirectUri,
+        aud: @serviceUri,
+        launch: @launchContextId,
+        state: session.id
+
+    }
+
+    redirect_uri = URI(@authUri)
+    redirect_uri.query = URI.encode_www_form(query_hash)
+
+    redirect_to redirect_uri
+
   end
 
 end
