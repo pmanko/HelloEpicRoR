@@ -14,7 +14,7 @@ class PagesController < ApplicationController
     #
     #
     #
-    # render :patient
+    render :patient
 
     #render layout: false
   end
