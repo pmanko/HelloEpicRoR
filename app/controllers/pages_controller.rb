@@ -33,7 +33,8 @@ class PagesController < ApplicationController
     secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
 
-    @body = Hash.from_xml(URI.parse(@conformanceUri).read)
+    @body = Hash.from_xml(URI.parse(@conformanceUri).read)["rest"]["extension"]["extension"].select {|x| x["url"] == "authorize" || x["url"] == "token" }
+
 
 
     #
