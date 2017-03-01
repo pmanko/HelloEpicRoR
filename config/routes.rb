@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   get 'findex', to: 'pages#fhir_index', as: :fhir_index
   get 'flaunch', to: 'pages#fhir_launch', as: :fhir_launch
+  get 'elaunch', to: 'pages#epic_launch', as: :ehir_launch
 
 end
