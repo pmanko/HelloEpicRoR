@@ -93,8 +93,6 @@ class PagesController < ApplicationController
     clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4"
     #secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
-    console
-
     launch(@launchUri, @redirectUri, @scope, clientId)
   end
 
