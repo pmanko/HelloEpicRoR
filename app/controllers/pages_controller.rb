@@ -79,57 +79,57 @@ class PagesController < ApplicationController
 
     byebug
 
-    launch(@launchUri, @redirectUri, @scope, clientId, secret)
+    launch(@redirectUri, @scope, clientId, secret)
   end
 
   def epic_launch
 
 
     # Params
-    @launchUri = "https://enigmatic-brushlands-72564.herokuapp.com/elaunch"
-    @redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
+    launchUri = "https://enigmatic-brushlands-72564.herokuapp.com/elaunch"
+    redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
     # Scope for needed info
-    @scope = "patient/*.read launch"
+    scope = "patient/*.read launch"
     clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4"
     #secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
-    launch(@launchUri, @redirectUri, @scope, clientId)
+    launch(redirectUri, scope, clientId)
   end
 
 
   private
 
-  def launch(launch_uri, redirect_uri, scope, client_id, secret = nil)
+  def launch(redirect_uri, scope, client_id, secret = nil)
     # Get query params
-    @serviceUri = params["iss"]
-    @launchContextId = params["launch"]
+    service_uri = params["iss"]
+    launch_context_id = params["launch"]
 
     # Generate URIs
-    @conformanceUri = "#{@serviceUri}/metadata"
-    @body = Nokogiri::XML(URI.parse(@conformanceUri).read).remove_namespaces!
+    conformance_uri = "#{service_uri}/metadata"
+    @body = Nokogiri::XML(URI.parse(conformance_uri).read).remove_namespaces!
 
-    @authUri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="authorize"]//valueUri').first.values.first
-    @tokenUri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="token"]//valueUri').first.values.first
+    auth_rui = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="authorize"]//valueUri').first.values.first
+    token_uri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="token"]//valueUri').first.values.first
 
     # Set session params
-    session[:clientId] = clientId
+    session[:clientId] = client_id
     session[:secret] = secret
-    session[:serviceUri] = @serviceUri
-    session[:redirectUri] = @redirectUri
-    session[:tokenUri] = @tokenUri
+    session[:serviceUri] = service_uri
+    session[:redirectUri] = redirect_uri
+    session[:tokenUri] = token_uri
 
     # Setup Authorization data and request
     query_hash = {
         response_type: "code",
-        client_id: clientId,
-        scope: @scope,
-        redirect_uri: @redirectUri,
-        aud: @serviceUri,
-        launch: @launchContextId,
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirect_uri,
+        aud: service_uri,
+        launch: launch_context_id,
         state: session.id
 
     }
-    redirect_uri = URI(@authUri)
+    redirect_uri = URI(auth_rui)
     redirect_uri.query = URI.encode_www_form(query_hash)
 
     # Go to Redirect URI
