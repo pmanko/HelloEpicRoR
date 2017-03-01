@@ -90,10 +90,26 @@ class PagesController < ApplicationController
     redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
     # Scope for needed info
     scope = "patient/*.read launch"
-    clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4"
-    #secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
+    clientId = "352aafc7-bcb5-496a-8bfd-b098e0f93060"
+    # 82768a0a-d830-47fc-8e51-e1b410c98fa4
+    # secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
     launch(redirectUri, scope, clientId)
+  end
+
+  def new_launch
+
+    # Params
+    launchUri = "https://enigmatic-brushlands-72564.herokuapp.com/elaunch"
+    redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
+    # Scope for needed info
+    scope = "patient/*.read launch"
+    clientId = "352aafc7-bcb5-496a-8bfd-b098e0f93060"
+    # 82768a0a-d830-47fc-8e51-e1b410c98fa4
+    # secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
+
+    launch(redirectUri, scope, clientId)
+
   end
 
 
