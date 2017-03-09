@@ -4,13 +4,11 @@ Rails.application.routes.draw do
   root 'pages#login'
 
   get 'patient', to: 'pages#patient', as: :patient
-
   get 'provider', to: 'pages#provider', as: :provider
 
   get 'findex', to: 'pages#fhir_index', as: :fhir_index
   get 'flaunch', to: 'pages#fhir_launch', as: :fhir_launch
-  get 'elaunch', to: 'pages#fhir_findex', as: :ehir_launch
-  get 'launch', to: 'pages#new_launch', as: :launch
-
-
+  get 'elaunch', to: 'pages#epic_launch', as: :ehir_launch
+  get 'launch', to: 'pages#local_launch', as: :local_launch
 end
+

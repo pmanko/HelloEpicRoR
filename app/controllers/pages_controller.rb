@@ -1,6 +1,7 @@
 require 'net/http'
 require 'nokogiri'
 require 'uri'
+require 'openssl'
 
 class PagesController < ApplicationController
 
@@ -20,19 +21,19 @@ class PagesController < ApplicationController
     @body.remove_namespaces!
 
     @params = {
-        a_line: @body.at("//line").values.first,
-        city: @body.at("//city").values.first,
-        state: @body.at("//state").values.first,
-        pc: @body.at("//postalCode").values.first,
-        country: @body.at("//country").values.first,
-        id: @body.at("//id").values.first,
-        active: @body.at("//active").values.first == "true",
-        fn: @body.at("//given").values.first,
-        ln: @body.at("//family").values.first,
-        dob: @body.at("//birthDate").values.first,
-        gender: @body.at("//gender").values.first,
-        email: @body.at("//telecom//system[@value='email']//..//value").values.first,
-        phone: @body.at("//telecom//system[@value='phone']//..//value").values.first
+        a_line: getval(@body, "//line"),
+        city: getval(@body, "//city"),
+        state: getval(@body, "//state"),
+        pc: getval(@body, "//postalCode"),
+        country: getval(@body, "//country"),
+        id: getval(@body, "//id"),
+        active: getval(@body, "//active") == "true",
+        fn: getval(@body, "//given"),
+        ln: getval(@body, "//family"),
+        dob: getval(@body, "//birthDate"),
+        gender: getval(@body, "//gender"),
+        email: getval(@body, "//telecom//system[@value='email']//..//value"),
+        phone: getval(@body, "//telecom//system[@value='phone']//..//value")
     }
 
   end
@@ -84,34 +85,29 @@ class PagesController < ApplicationController
 
   def epic_launch
 
-
     # Params
     launchUri = "https://enigmatic-brushlands-72564.herokuapp.com/elaunch"
     redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
-    # Scope for needed info
-    scope = "patient/*.read launch"
-    clientId = "352aafc7-bcb5-496a-8bfd-b098e0f93060"
-    # 82768a0a-d830-47fc-8e51-e1b410c98fa4
-    # secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
 
-    launch(redirectUri, scope, clientId)
-  end
-
-  def new_launch
-
-    # Params
-    launchUri = "https://enigmatic-brushlands-72564.herokuapp.com/elaunch"
-    redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
     # Scope for needed info
     scope = "patient/*.read"
-    clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4" # "352aafc7-bcb5-496a-8bfd-b098e0f93060"
-    # 82768a0a-d830-47fc-8e51-e1b410c98fa4
-    # secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
+    clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4" #
 
     launch(redirectUri, scope, clientId)
-
   end
 
+  def local_launch
+
+    # Params
+    launchUri = "http://localhost:3000/elaunch"
+    redirectUri = "http://localhost:3000/findex"
+
+    # Scope for needed info
+    scope = "patient/*.read"
+    clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4"
+
+    launch(redirectUri, scope, clientId)
+  end
 
   private
 
@@ -122,9 +118,22 @@ class PagesController < ApplicationController
 
     # Generate URIs
     conformance_uri = "#{service_uri}/metadata"
-    @body = Nokogiri::XML(URI.parse(conformance_uri).read).remove_namespaces!
 
-    auth_rui = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="authorize"]//valueUri').first.values.first
+
+    uri = URI(conformance_uri)
+
+    req = Net::HTTP::Get.new(uri)
+
+    res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+      http.request(req)
+    end
+
+    @body = res.body
+
+    @body = URI.parse(conformance_uri).read
+    @body = Nokogiri::XML(@body).remove_namespaces!
+
+    auth_uri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="authorize"]//valueUri').first.values.first
     token_uri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="token"]//valueUri').first.values.first
 
     # Set session params
@@ -140,15 +149,19 @@ class PagesController < ApplicationController
         client_id: client_id,
         scope: scope,
         redirect_uri: redirect_uri,
-        aud: service_uri,
+        #aud: service_uri,
         launch: launch_context_id,
         state: session.id
 
     }
-    redirect_uri = URI(auth_rui)
+    redirect_uri = URI(auth_uri)
     redirect_uri.query = URI.encode_www_form(query_hash)
 
     # Go to Redirect URI
     redirect_to redirect_uri.to_s
+  end
+
+  def getval(body, xpath)
+    body.at(xpath) ? body.at(xpath).values.first : nil
   end
 end
