@@ -91,7 +91,8 @@ class PagesController < ApplicationController
 
     # Scope for needed info
     scope = "patient/*.read"
-    clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4" #
+    clientId = "7024ba74-0e17-42b4-b988-7fee02f4c7e2"
+    secret = "wGi7+xEpydRRoYom6mhhMMTOqYEwCHH5JEWsn/RCyfaA6FVFkzbr2i+0Z0qZElvVCP9F9pV1Ef6Gd/9b7ODRh9VokxUmAp4+1DEvikk1Aiypab1FIwfNgdNOU5LtwtxaUsRqnDaqFZ4oGoTLqLSiZJ2yj7P/2dN+hPdLGMLLwvvMgtlNiYJoJQHVXh5ojiY3dSRRk+18BVw0gg699WUQzR3FqkcHlWGkEggkVFVpS/1v9QVKF7M94k4pU1QlHZ1LHIRF+kyXdlcvczyjD6qQEIeUtBxpGMY5DAfqfI6mRDlGQhJuCxkuWJG9iXwy7a8YXgzM45xhpp+HnuT2NpDYUyUwje+Vq2HCaT9PFvVGPhkAMIBwA/00I77aZHOf8XCeIhGNrbdnYKhfXXaD4XgCKcjJTSpdf4t7Yzcc29H1fmHqVEOYKJ2RlnDX6teX0pdTdyl1sSsgkvtIpEuSocjywRRCyVkOTQzCby0+HUEXgsnFWxhCpiBv+gJcqyZdakTv0wOLl9+6f3PJDDx7ntGK+Rc2WTr5Afb+PMcNRMJKbLRiNxOA8tPwlMyOSfyOQyT3pmmFx4zT6RHCY4b3mzV281bmIudQ2GaEa3k2FlhfQqjya3u0LdD92mTs+psCnKQwTgMSb3Oldefb5QvCbHy14Ic1M7cnQf1HlGx+ic/h+GM="
 
     launch(redirectUri, scope, clientId)
   end
