@@ -109,6 +109,60 @@ class PagesController < ApplicationController
     launch(redirectUri, scope, clientId)
   end
 
+  def remote_launch
+    client_id = '7024ba74-0e17-42b4-b988-7fee02f4c7e2'
+    secret = "ku2A0eCEZSpSFVADUnu3RCcSpfeEziRplzKza7JPXT4uBF7UY+EX7LjJewPj7I/lM6FcdilUnlBIr78gUWnFbKo8fkD22RMzDILIdq3zcwspg37s5bSfi19HUTLXJwrTKb6fXXQDBkul2ZiqgjOjZpAU8pB9YHLSP7tXWzVxThbY1Z3ZmGBvprvFbAKf2Cz+DeVWJ5CMQbyGQzYI1W0AQ/b1XSu/+c6vPINBJescDxsesklcGvwgNe7o/CTtK+wSuaXafoWCNW8pfHl1V9uKMGxwcoEvqdAZtern2VhnyaVSVCPiEZc+DJX1EpTTA3eaUnwEIlMLN1aeELQ0TUgj/w/Pvr6W5YyLUDeIjSn2et5/b37Qda49vdzA68lAde9QBRV8vi8erRoh8k5KGSNGiYvU9VBGo+OStIEmBZsTbWasF35xIcb+I7hIIurkvFtZDvlwPxVjT9662YVs/FTnT3GBC53l2UcMhnj5nPeo4K/wPecDjPxrJJB4Y/FVxJ6fjsuQmbrqCwY2ZmQIyMn9oPmeHk7TTYrBHWz4rX/fq51ZYEQPjnYieVd6Tkq5Aa4pKPrEWTJJB4bmIrlUEur8yA43DEZAo4t7fJfmZVg8dbhbaxb8hOxI/68MuxIkgev7VLGjtEo74CxReP07IesKSHW+NwY00zQ2hnq5hwYnLK0="
+    service_uri = 'https://ic-fhirworks.epic.com/interconnect-fhir-open/api/FHIR/DSTU2/'
+    scope = "patient/*.read"
+
+    launchUri = "http://localhost:3000/elaunch"
+    redirectUri = "http://localhost:3000/findex"
+
+    # Generate URIs
+    conformance_uri = "#{service_uri}/metadata"
+
+    uri = URI(conformance_uri)
+
+    req = Net::HTTP::Get.new(uri)
+
+    res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+      http.request(req)
+    end
+
+    @body = res.body
+
+    @body = URI.parse(conformance_uri).read
+    @body = Nokogiri::XML(@body).remove_namespaces!
+
+    auth_uri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="authorize"]//valueUri').first.values.first
+    token_uri = @body.xpath('//rest//extension[@url="http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris"]//extension[@url="token"]//valueUri').first.values.first
+
+    # Set session params
+    session[:clientId] = client_id
+    session[:secret] = secret
+    session[:serviceUri] = service_uri
+    session[:redirectUri] = redirectUri
+    session[:tokenUri] = token_uri
+
+    # Setup Authorization data and request
+    query_hash = {
+        response_type: "code",
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirectUri,
+        #aud: service_uri,
+        #launch: launch_context_id,
+        state: session.id
+
+    }
+    redirect_uri = URI(auth_uri)
+    redirect_uri.query = URI.encode_www_form(query_hash)
+
+    # Go to Redirect URI
+    redirect_to redirect_uri.to_s
+
+  end
+
   private
 
   def launch(redirect_uri, scope, client_id, secret = nil)

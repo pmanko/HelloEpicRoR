@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get 'flaunch', to: 'pages#fhir_launch', as: :fhir_launch
   get 'elaunch', to: 'pages#epic_launch', as: :ehir_launch
   get 'launch', to: 'pages#local_launch', as: :local_launch
+  get 'remote', to: 'pages#remote_launch', as: :remote_launch
 end
 
