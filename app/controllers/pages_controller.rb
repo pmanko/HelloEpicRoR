@@ -116,7 +116,7 @@ class PagesController < ApplicationController
     client_id = '7024ba74-0e17-42b4-b988-7fee02f4c7e2'
     secret = "ku2A0eCEZSpSFVADUnu3RCcSpfeEziRplzKza7JPXT4uBF7UY+EX7LjJewPj7I/lM6FcdilUnlBIr78gUWnFbKo8fkD22RMzDILIdq3zcwspg37s5bSfi19HUTLXJwrTKb6fXXQDBkul2ZiqgjOjZpAU8pB9YHLSP7tXWzVxThbY1Z3ZmGBvprvFbAKf2Cz+DeVWJ5CMQbyGQzYI1W0AQ/b1XSu/+c6vPINBJescDxsesklcGvwgNe7o/CTtK+wSuaXafoWCNW8pfHl1V9uKMGxwcoEvqdAZtern2VhnyaVSVCPiEZc+DJX1EpTTA3eaUnwEIlMLN1aeELQ0TUgj/w/Pvr6W5YyLUDeIjSn2et5/b37Qda49vdzA68lAde9QBRV8vi8erRoh8k5KGSNGiYvU9VBGo+OStIEmBZsTbWasF35xIcb+I7hIIurkvFtZDvlwPxVjT9662YVs/FTnT3GBC53l2UcMhnj5nPeo4K/wPecDjPxrJJB4Y/FVxJ6fjsuQmbrqCwY2ZmQIyMn9oPmeHk7TTYrBHWz4rX/fq51ZYEQPjnYieVd6Tkq5Aa4pKPrEWTJJB4bmIrlUEur8yA43DEZAo4t7fJfmZVg8dbhbaxb8hOxI/68MuxIkgev7VLGjtEo74CxReP07IesKSHW+NwY00zQ2hnq5hwYnLK0="
     service_uri = 'https://ic-fhirworks.epic.com/interconnect-fhir-open/api/FHIR/DSTU2/'
-    scope = "patient/*.read"
+    scope = "patient/*.read openid profile"
 
     launchUri = "http://localhost:3000/elaunch"
     redirectUri = "http://localhost:3000/findex"
