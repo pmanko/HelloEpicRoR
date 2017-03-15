@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require jquery.scrollex.min.js
 //= require jquery.scrolly.min.js
+//= require vkbeautify.js
 //= require skel.min
 //= require util
 //= require main

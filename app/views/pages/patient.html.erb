@@ -59,8 +59,13 @@
     <h5>Other Information...</h5>
     <p style="font-size: 12px;">
       <h2>Patient:</h2>
-      <%= @body %>
+      <div id="p_body"><%= @body %></div>
       <h2>AUTH:</h2>
-      <%= session[:auth_body] %>
+      <div id="a_body"><%= session[:auth_body] %></div>s
     </p>
+
+    <script type="application/javascript">
+      $('#p_body').text($('#p_body').text());
+      $('#a_body').text($('#a_body').text());
+    </script>
 </section>
