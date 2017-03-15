@@ -66,7 +66,9 @@ class PagesController < ApplicationController
 
 
 
-    redirect_to patient_path
+    #redirect_to patient_path
+
+    render 'pages/dump_body'
   end
 
   def fhir_launch
