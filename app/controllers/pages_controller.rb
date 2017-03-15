@@ -63,12 +63,11 @@ class PagesController < ApplicationController
 
     session[:accessToken] = @body['access_token']
     session[:patientId] = @body['patient']
+    session[:auth_body] = @body
 
+    redirect_to patient_path
 
-
-    #redirect_to patient_path
-
-    render 'pages/dump_body'
+    #render 'pages/dump_body'
   end
 
   def fhir_launch

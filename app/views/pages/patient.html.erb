@@ -57,5 +57,10 @@
       </tbody>
     </table>
     <h5>Other Information...</h5>
-    <p style="font-size: 10px;"><%= @body %></p>
+    <p style="font-size: 12px;">
+      <h2>Patient:</h2>
+      <%= @body %>
+      <h2>AUTH:</h2>
+      <%= session[:auth_body] %>
+    </p>
 </section>
