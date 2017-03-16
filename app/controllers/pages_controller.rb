@@ -232,6 +232,6 @@ class PagesController < ApplicationController
   end
 
   def getval(body, xpath)
-    body.at(xpath) ? body.at(xpath).values.first : nil
+    body.at(xpathg) ? body.at(xpath).values.first : nil
   end
 end

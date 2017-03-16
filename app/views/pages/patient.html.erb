@@ -59,9 +59,10 @@
     <h5>Other Information...</h5>
     <p style="font-size: 12px;">
       <h2>Patient:</h2>
-      <div id="p_body"><%= @body %></div>
+
+      <div id="p_body" style="overflow: hidden"><%= @body %></div>
       <h2>AUTH:</h2>
-      <div id="a_body"><%= session[:auth_body] %></div>s
+      <div id="a_body" style="overflow: hidden"><%= session[:auth_body] %></div>s
     </p>
 
     <script type="application/javascript">
