@@ -76,10 +76,8 @@ class PagesController < ApplicationController
     @redirectUri = "https://enigmatic-brushlands-72564.herokuapp.com/findex"
     # Scope for needed info
     @scope = "patient/*.read launch"
-    clientId = "4bc7b02f-7a71-45d8-9b98-5181458e79ac"
-    secret = "ALBJ1YiX4Ieto_vrgvPP3s2SM-zO5cwQlXCSXfsZC4ZJkN-Q2w9sh-wmkW1UwSYXI9Ao-NsjAEyNPw-SzfeV6Nc"
-
-    byebug
+    clientId = "4fa42226-4566-4c77-997b-5adbe631b4bd"
+    secret = "AMfzh3aiihlXj8gYB-M96bTOGh-Gp4qE1lqOOUvJF_aRd0-Qmhkt9YMqpJ7n9-quuIooD_Ur2zJX0cJ-1zNuKfE"
 
     launch(@redirectUri, @scope, clientId, secret)
   end
@@ -109,20 +107,23 @@ class PagesController < ApplicationController
     clientId = "7024ba74-0e17-42b4-b988-7fee02f4c7e2"
     secret = "wGi7+xEpydRRoYom6mhhMMTOqYEwCHH5JEWsn/RCyfaA6FVFkzbr2i+0Z0qZElvVCP9F9pV1Ef6Gd/9b7ODRh9VokxUmAp4+1DEvikk1Aiypab1FIwfNgdNOU5LtwtxaUsRqnDaqFZ4oGoTLqLSiZJ2yj7P/2dN+hPdLGMLLwvvMgtlNiYJoJQHVXh5ojiY3dSRRk+18BVw0gg699WUQzR3FqkcHlWGkEggkVFVpS/1v9QVKF7M94k4pU1QlHZ1LHIRF+kyXdlcvczyjD6qQEIeUtBxpGMY5DAfqfI6mRDlGQhJuCxkuWJG9iXwy7a8YXgzM45xhpp+HnuT2NpDYUyUwje+Vq2HCaT9PFvVGPhkAMIBwA/00I77aZHOf8XCeIhGNrbdnYKhfXXaD4XgCKcjJTSpdf4t7Yzcc29H1fmHqVEOYKJ2RlnDX6teX0pdTdyl1sSsgkvtIpEuSocjywRRCyVkOTQzCby0+HUEXgsnFWxhCpiBv+gJcqyZdakTv0wOLl9+6f3PJDDx7ntGK+Rc2WTr5Afb+PMcNRMJKbLRiNxOA8tPwlMyOSfyOQyT3pmmFx4zT6RHCY4b3mzV281bmIudQ2GaEa3k2FlhfQqjya3u0LdD92mTs+psCnKQwTgMSb3Oldefb5QvCbHy14Ic1M7cnQf1HlGx+ic/h+GM="
 
-    launch(redirectUri, scope, clientId)
+    launch(redirectUri, scope, clientId, secret)
   end
 
   def local_launch
 
     # Params
-    launchUri = "http://localhost:3000/elaunch"
+    launchUri = "http://localhost:3000/launch"
     redirectUri = "http://localhost:3000/findex"
 
     # Scope for needed info
-    scope = "patient/*.read"
-    clientId = "82768a0a-d830-47fc-8e51-e1b410c98fa4"
+    scope = "patient/*.read launch"
 
-    launch(redirectUri, scope, clientId)
+    # Scope for needed info
+    clientId = "4fa42226-4566-4c77-997b-5adbe631b4bd"
+    secret = "AMfzh3aiihlXj8gYB-M96bTOGh-Gp4qE1lqOOUvJF_aRd0-Qmhkt9YMqpJ7n9-quuIooD_Ur2zJX0cJ-1zNuKfE"
+
+    launch(redirectUri, scope, clientId, secret)
   end
 
   def remote_launch
